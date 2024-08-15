@@ -16,6 +16,7 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+import { useUser } from "@clerk/nextjs";
 import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
 import db from "../../firebase";
 
@@ -29,7 +30,7 @@ export default function Generate() {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [setName, setSetName] = useState<string>("");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const user = { id: "user-id" }; // Replace with actual user ID logic
+  const { isLoaded, isSignedIn, user } = useUser();
 
   const handleSubmit = async () => {
     if (!text.trim()) {
@@ -48,7 +49,8 @@ export default function Generate() {
       }
 
       const data = await response.json();
-      setFlashcards(data.flashcards);
+      console.log(data);
+      setFlashcards(data);
     } catch (error) {
       console.error("Error generating flashcards:", error);
       alert("An error occurred while generating flashcards. Please try again.");
@@ -61,6 +63,11 @@ export default function Generate() {
   const saveFlashcards = async () => {
     if (!setName.trim()) {
       alert("Please enter a name for your flashcard set.");
+      return;
+    }
+
+    if (!user || !user.id) {
+      alert("You must be signed in to save flashcards.");
       return;
     }
 
