@@ -8,7 +8,7 @@ html {
 
 @layer base {
   body {
-    @apply bg-[#fff] text-black tracking-widest !important;
+    @apply bg-[#f5f9fc] text-black tracking-widest !important;
   }
 
   h2,
@@ -98,5 +98,68 @@ html {
 }
 
 .butn1:hover .arrow:before {
+  right: 0;
+}
+
+
+/* second variation */
+.butnSec {
+  --primary-color: #3949AB;
+  --secondary-color: #ffa255;
+  --hover-color: #111;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 20px;
+  color: #fff;
+  padding: 0.5em 1.8em;
+  background: var(--primary-color);
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+  text-transform: none; /* Add this line */
+}
+
+.butnSec .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.butnSec .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: var(--primary-color);
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+.butnSec .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid #fff;
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.butnSec:hover {
+  background-color: #283593;
+}
+
+.butnSec:hover .arrow {
+  background: #fff;
+}
+
+.butnSec:hover .arrow:before {
   right: 0;
 }
